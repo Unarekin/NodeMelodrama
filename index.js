@@ -46,8 +46,8 @@ var sparkline = grid.set(10, 10, 2, 2, contrib.sparkline,
 
 var bar = grid.set(4, 6, 4, 6, contrib.bar, 
   { label: 'Server Utilization (%)'
-  , barWidth: 4
-  , barSpacing: 6
+  , barWidth: 2
+  , barSpacing: 4
   , xOffset: 2
   , maxHeight: 9})
 
@@ -142,14 +142,23 @@ setInterval(function() {
 
 //set dummy data on bar chart
 function fillBar() {
-  var arr = []
-  for (var i=0; i<servers.length; i++) {
-    arr.push(Math.round(Math.random()*10))
-  }
-  bar.setData({titles: servers, data: arr})
+  var data = []
+  for (var i=0; i<servers.length; i++)
+    data.push(Math.round(Math.random()*10))
+  bar.setData({titles: servers, data: data})
 }
+
 fillBar()
 setInterval(fillBar, 2000)
+
+
+function clamp(value, min, max) {
+  if (value < min)
+    return min;
+  if (value > max)
+    return max;
+  return value;
+}
 
 
 //set dummy data for table
@@ -199,7 +208,7 @@ function logFile() {
             log.log(lines[i]);
             await delay((Math.floor(Math.random() * 500) + 1));
           }
-          process.nextInterval(logFile);
+          process.nextTick(logFile);
         }
       });
     } else {
