@@ -37,7 +37,7 @@ var latencyLine = grid.set(8, 6, 4, 4, contrib.line,
   , label: 'Network Latency (sec)'})
 
 var gauge = grid.set(8, 10, 2, 2, contrib.gauge, {label: 'Storage', percent: [80,20]})
-var gauge_two = grid.set(0, 9, 4, 3, contrib.gauge, {label: 'Deployment Progress', percent: 80})
+var gauge_two = grid.set(0, 6, 4, 6, contrib.gauge, {label: 'Deployment Progress', percent: 80})
 
 var sparkline = grid.set(10, 10, 2, 2, contrib.sparkline, 
   { label: 'Throughput'
@@ -86,14 +86,14 @@ var bar = grid.set(4, 6, 4, 6, contrib.bar,
 //   }
 // );
 
-var errorsLine = grid.set(0, 6, 4, 3, contrib.line, 
-  { style: 
-    { line: "red"
-    , text: "white"
-    , baseline: "black"}
-  , label: 'Errors Rate'
-  , maxY: 60
-  , showLegend: true })
+// var errorsLine = grid.set(0, 6, 4, 3, contrib.line, 
+//   { style: 
+//     { line: "red"
+//     , text: "white"
+//     , baseline: "black"}
+//   , label: 'Errors Rate'
+//   , maxY: 60
+//   , showLegend: true })
 
 var transactionsLine = grid.set(0, 0, 6, 6, contrib.line, 
           { showNthLabel: 5
@@ -288,7 +288,7 @@ for (var i=0;i<10;i++) {
 // }
 
 setLineData([transactionsData, transactionsData1], transactionsLine)
-setLineData([errorsData], errorsLine)
+//setLineData([errorsData], errorsLine)
 setLineData([latencyData], latencyLine)
 
 setInterval(function() {
@@ -296,9 +296,9 @@ setInterval(function() {
    screen.render()
 }, 500)
 
-setInterval(function() {   
-    setLineData([errorsData], errorsLine)
-}, 1500)
+// setInterval(function() {   
+//     setLineData([errorsData], errorsLine)
+// }, 1500)
 
 setInterval(function() {
   setLineData([latencyData], latencyLine);
@@ -354,14 +354,14 @@ screen.key(['escape', 'q', 'C-c'], function(ch, key) {
 
 // fixes https://github.com/yaronn/blessed-contrib/issues/10
 screen.on('resize', function() {
-  donut.emit('attach');
+  //donut.emit('attach');
   gauge.emit('attach');
   gauge_two.emit('attach');
   sparkline.emit('attach');
   bar.emit('attach');
   //table.emit('attach');
-  lcdLineOne.emit('attach');
-  errorsLine.emit('attach');
+  //lcdLineOne.emit('attach');
+  //errorsLine.emit('attach');
   transactionsLine.emit('attach');
   //map.emit('attach');
   //log.emit('attach');
