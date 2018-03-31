@@ -18,16 +18,16 @@ var grid = new contrib.grid({rows: 12, cols: 12, screen: screen})
   self.options.arcWidth = options.arcWidth || 4; //width of the donut
   self.options.yPadding = options.yPadding || 2; //padding from the top
  */
-var donut = grid.set(8, 8, 4, 2, contrib.donut, 
-  {
-  label: '',
-  radius: 16,
-  arcWidth: 4,
-  yPadding: 2,
-  data: [{label: 'Storage', percent: 87}]
-})
+// var donut = grid.set(8, 8, 4, 2, contrib.donut, 
+//   {
+//   label: '',
+//   radius: 16,
+//   arcWidth: 4,
+//   yPadding: 2,
+//   data: [{label: 'Storage', percent: 87}]
+// })
 
-var latencyLine = grid.set(8, 6, 4, 2, contrib.line, 
+var latencyLine = grid.set(8, 6, 4, 4, contrib.line, 
   { style: 
     { line: "yellow"
     , text: "green"
@@ -37,26 +37,26 @@ var latencyLine = grid.set(8, 6, 4, 2, contrib.line,
   , label: 'Network Latency (sec)'})
 
 var gauge = grid.set(8, 10, 2, 2, contrib.gauge, {label: 'Storage', percent: [80,20]})
-var gauge_two = grid.set(2, 9, 2, 3, contrib.gauge, {label: 'Deployment Progress', percent: 80})
+var gauge_two = grid.set(0, 9, 4, 3, contrib.gauge, {label: 'Deployment Progress', percent: 80})
 
 var sparkline = grid.set(10, 10, 2, 2, contrib.sparkline, 
-  { label: 'Throughput (bits/sec)'
+  { label: 'Throughput'
   , tags: true
   , style: { fg: 'blue', titleFg: 'white' }})
 
-var bar = grid.set(4, 6, 4, 3, contrib.bar, 
+var bar = grid.set(4, 6, 4, 6, contrib.bar, 
   { label: 'Server Utilization (%)'
   , barWidth: 4
   , barSpacing: 6
   , xOffset: 2
   , maxHeight: 9})
 
-var table =  grid.set(4, 9, 4, 3, contrib.table, 
-  { keys: true
-  , fg: 'green'
-  , label: 'Active Processes'
-  , columnSpacing: 1
-  , columnWidth: [24, 10, 10]})
+// var table =  grid.set(4, 9, 4, 3, contrib.table, 
+//   { keys: true
+//   , fg: 'green'
+//   , label: 'Active Processes'
+//   , columnSpacing: 1
+//   , columnWidth: [24, 10, 10]})
 
 /*
  *
@@ -73,18 +73,18 @@ var table =  grid.set(4, 9, 4, 3, contrib.table,
 //coloring
   options.color = options.color || "white";
 */
-var lcdLineOne = grid.set(0,9,2,3, contrib.lcd,
-  {
-    label: "LCD Test",
-    segmentWidth: 0.06,
-    segmentInterval: 0.11,
-    strokeWidth: 0.1,
-    elements: 5,
-    display: 3210,
-    elementSpacing: 4,
-    elementPadding: 2
-  }
-);
+// var lcdLineOne = grid.set(0,9,2,3, contrib.lcd,
+//   {
+//     label: "LCD Test",
+//     segmentWidth: 0.06,
+//     segmentInterval: 0.11,
+//     strokeWidth: 0.1,
+//     elements: 5,
+//     display: 3210,
+//     elementSpacing: 4,
+//     elementPadding: 2
+//   }
+// );
 
 var errorsLine = grid.set(0, 6, 4, 3, contrib.line, 
   { style: 
@@ -168,9 +168,9 @@ function generateTable() {
    table.setData({headers: ['Process', 'Cpu (%)', 'Memory'], data: data})
 }
 
-generateTable()
-table.focus()
-setInterval(generateTable, 3000)
+// generateTable()
+// table.focus()
+// setInterval(generateTable, 3000)
 
 
 // set log dummy data
@@ -295,18 +295,18 @@ setInterval(function() {
   setLineData([latencyData], latencyLine);
 }, 250)
 
-setInterval(function(){
-  var colors = ['green','magenta','cyan','red','blue'];
-  var text = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+// setInterval(function(){
+//   var colors = ['green','magenta','cyan','red','blue'];
+//   var text = ['A','B','C','D','E','F','G','H','I','J','K','L'];
 
-  var value = Math.round(Math.random() * 100);
-  lcdLineOne.setDisplay(value + text[value%12]);
-  lcdLineOne.setOptions({
-    color: colors[value%5],
-    elementPadding: 4
-  });
-  screen.render()
-}, 1500);
+//   var value = Math.round(Math.random() * 100);
+//   lcdLineOne.setDisplay(value + text[value%12]);
+//   lcdLineOne.setOptions({
+//     color: colors[value%5],
+//     elementPadding: 4
+//   });
+//   screen.render()
+// }, 1500);
 
 var pct = 0.00;
 
@@ -322,10 +322,10 @@ function updateDonut(){
   pct += 0.01;
 }
 
-setInterval(function() {   
-   updateDonut();
-   screen.render()
-}, 500)
+// setInterval(function() {   
+//    updateDonut();
+//    screen.render()
+// }, 500)
 
 function setLineData(mockData, line) {
   for (var i=0; i<mockData.length; i++) {
@@ -350,7 +350,7 @@ screen.on('resize', function() {
   gauge_two.emit('attach');
   sparkline.emit('attach');
   bar.emit('attach');
-  table.emit('attach');
+  //table.emit('attach');
   lcdLineOne.emit('attach');
   errorsLine.emit('attach');
   transactionsLine.emit('attach');
