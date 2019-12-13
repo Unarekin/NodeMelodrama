@@ -10,7 +10,7 @@
     "cli-highlight": "^1.2.3",
     "delay": "^2.0.0",
     "highlight-javascript": "^0.0.3",
-    "npm": "^5.8.0",
+    "npm": "^6.13.4",
     "q": "^1.5.1"
   },
   "devDependencies": {},
